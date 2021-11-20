@@ -1,0 +1,12 @@
+version: "3.8"
+services:
+  mongodb:
+    image : mcr.microsoft.com/azure-sql-edge
+    container_name: sqledge
+    volumes:
+    - ./data:/var/opt/mssql/data
+    - ./logs/log:/var/opt/mssql/log
+    - ./secrets:/var/opt/mssql/secrets
+    ports:
+    - 1433:1433
+    restart: unless-stopped
