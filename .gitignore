@@ -5,5 +5,8 @@ Relational/SQLServer/data
 Relational/SQLServer/logs
 Relational/SQLServer/secrets
 
+.DS_Store
+
 ## MongoDB folders to ignore
 Non-Relational/MongoDB/data
+
