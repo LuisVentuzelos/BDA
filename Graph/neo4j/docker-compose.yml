@@ -1,0 +1,13 @@
+
+version: "3.8"
+services:
+  neo:
+    image: neo4j/neo4j-arm64-experimental:4.1.11-arm64
+    container_name: neo4j
+    ports: 
+        - 7474:7474
+        - 7687:7687
+    volumes:
+        - ./data:/data/
+    env_file:
+        - neo4j.env

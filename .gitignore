@@ -1,13 +1,13 @@
 # SQL Server folders to ignore
 
 ## SQL Server folders to ignore
-Relational/SQLServer/data
-Relational/SQLServer/logs
-Relational/SQLServer/secrets
-
-.DS_Store
-.env
+Relational/SQLServer/data/*
+Relational/SQLServer/logs/*
+Relational/SQLServer/secrets/*
 
 ## MongoDB folders to ignore
-Non-Relational/MongoDB/data
+Non-Relational/MongoDB/data/*
+.DS_Store
 
+## Neo4J folders to ignore
+Graph/Neo4J/data/*

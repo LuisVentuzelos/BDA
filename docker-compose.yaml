@@ -1,0 +1,35 @@
+version: "3.8"
+services:
+  sqledge:
+    image : mcr.microsoft.com/azure-sql-edge
+    container_name: sqledge
+    volumes:
+    - ./Relational/SQLServer/data:/var/opt/mssql/data
+    - ./Relational/SQLServer/data/logs/log:/var/opt/mssql/log
+    - ./Relational/SQLServer/data/secrets:/var/opt/mssql/secrets
+    ports:
+    - 1433:1433
+    restart: unless-stopped
+
+  neo:
+    image: neo4j/neo4j-arm64-experimental:4.1.11-arm64
+    container_name: neo4j
+    ports: 
+        - 7474:7474
+        - 7687:7687
+    volumes:
+        - ./Graph/neo4j/data:/data/
+    env_file:
+        - ./Graph/neo4j/neo4j.env
+    restart: unless-stopped
+
+  mongodb:
+    image : mongo
+    container_name: mongodb
+    env_file:
+    - ./Non-Relational/mongoDB/mongodb.env
+    volumes:
+    - ./Non-Relational/mongoDB/data:/data/db
+    ports:
+    - 27018:27017
+    restart: unless-stopped
