@@ -4,7 +4,7 @@ services:
     image : mongo
     container_name: mongodb
     env_file:
-    - .env
+    - mongodb.env
     volumes:
     - ./data:/data/db
     ports:
