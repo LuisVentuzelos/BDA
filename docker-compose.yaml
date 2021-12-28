@@ -2,7 +2,7 @@ version: "3.8"
 services:
   sqledge:
     image : mcr.microsoft.com/azure-sql-edge
-    container_name: sqledge
+    container_name: bda_sqledge
     volumes:
     - ./Relational/SQLServer/data:/var/opt/mssql/data
     - ./Relational/SQLServer/data/logs/log:/var/opt/mssql/log
@@ -10,10 +10,35 @@ services:
     ports:
     - 1433:1433
     restart: unless-stopped
+  
+  postgres:
+      image: postgres
+      container_name: bda_postgres
+      env_file:
+        - .env
+      ports:
+        - "15432:5432"
+      volumes:
+        - ./Relational/PostgreSQL/data:/var/lib/postgresql/data/ 
+      networks:
+        - postgres-compose-network
+        
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: bda_pgadmin
+    env_file:
+      - .env
+    ports:
+      - "16543:80"
+    depends_on:
+      - postgres
+    networks:
+      - postgres-compose-network
+
 
   neo:
     image: neo4j/neo4j-arm64-experimental:4.1.11-arm64
-    container_name: neo4j
+    container_name: bda_neo4j
     ports: 
         - 7474:7474
         - 7687:7687
@@ -25,7 +50,7 @@ services:
 
   mongodb:
     image : mongo
-    container_name: mongodb
+    container_name: bda_mongodb
     env_file:
     - ./Non-Relational/mongoDB/mongodb.env
     volumes:
@@ -33,3 +58,8 @@ services:
     ports:
     - 27018:27017
     restart: unless-stopped
+
+
+networks: 
+  postgres-compose-network:
+    driver: bridge
